@@ -3,7 +3,9 @@ const Schema = mongoose.Schema
 
 
 const Review = mongoose.model('Review', {
-  title: String
+  title: String,
+  description: String,
+  movieTitle: String
 });
 
 module.exports = mongoose.model('Review', Review)
