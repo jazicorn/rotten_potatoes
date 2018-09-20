@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('respond with a resource');
+  res.render('reviews-index', { reviews: reviews });
 })
 
 module.exports = router;

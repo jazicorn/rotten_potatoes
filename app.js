@@ -6,6 +6,8 @@ const logger = require('morgan');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/rotten-potatoes', { useMongoClient: true });
 
 //const indexRouter = require('./routes/index');
 //const usersRouter = require('./routes/users');
@@ -26,17 +28,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/users', usersRouter);
 
 
+//let reviews = [
+//  { title: "Great Review" },
+//  { title: "Next Review" }
+//]
 
-let reviews = [
-  { title: "Great Review" },
-  { title: "Next Review" }
-]
 
 // INDEX
-app.get('/reviews', (req, res) => {
-  res.render('reviews-index', { reviews: reviews });
+app.get('/', (req, res) => {
+  Review.find()
+    .then(reviews => {
+      res.render('reviews-index', { reviews: reviews });
+    })
+    .catch(err => {
+      console.log(err);
+    })
 })
-
 
 
 
