@@ -8,4 +8,4 @@ const Review = mongoose.model('Review', {
   movieTitle: String
 });
 
-module.exports = mongoose.model('Review', Review)
+module.exports = Review
