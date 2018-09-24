@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const methodOverride = require('method-override');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -7,12 +8,28 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rotten-potatoes', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/rotten-potatoes');
 
-//const indexRouter = require('./routes/index');
-//const usersRouter = require('./routes/users');
+const Review = mongoose.model('Review', {
+  title: String
+});
+
+const mongo = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb://localhost:27017/rotten-potatoes'";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+
 
 const app = express();
+
+// override with POST having ?_method=DELETE or ?_method=PUT
+app.use(methodOverride('_method'))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,36 +42,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
-
-
-//let reviews = [
-//  { title: "Great Review" },
-//  { title: "Next Review" }
-//]
-
-
-// INDEX
-app.get('/', (req, res) => {
-  Review.find()
-    .then(reviews => {
-      res.render('reviews-index', { reviews: reviews });
-    })
-    .catch(err => {
-      console.log(err);
-    })
-})
-
-// CREATE
-app.post('/reviews', (req, res) => {
-  Review.create(req.body).then((review) => {
-    console.log(review);
-    res.redirect('/');
-  }).catch((err) => {
-    console.log(err.message);
-  })
-})
 
 //////////////////////////////////////////////////////////////
 
