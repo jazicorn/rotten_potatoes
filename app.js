@@ -4,42 +4,56 @@ const methodOverride = require('method-override');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const router = express.Router();
 const bodyParser = require('body-parser');
 const reviews = require('./controllers/reviews');
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rotten-potatoes');
-
-
-//const mongo = require('mongodb');
-//const MongoClient = require('mongodb').MongoClient;
-//const url = "mongodb://localhost:27017/rotten-potatoes'";
-
-//MongoClient.connect(url, function(err, db) {
-// if (err) throw err;
-// console.log("Database created!");
-// db.close();
-//});
-
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rotten-potatoes', { useNewUrlParser: true });
+
+
+/*
+// Template Engine setup
+app.engine('hbs', hbs({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutsDir: __dirname + '/views/layouts/'
+}));
+
+*/
+
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+const hbs = require('express-handlebars');
+app.engine('hbs', hbs({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutsDir: __dirname + '/views/layouts/'
+}));
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, "views"));
+
 
 app.use(logger('dev'));
 app.use(express.json());
-//app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // override with POST having ?_method=DELETE or ?_method=PUT
 app.use(methodOverride('_method'));
 
-app.use(reviews);
+const router = express.Router();
+
+//app.use(reviews);
+reviews(app);
+
+
+
 //////////////////////////////////////////////////////////////
 
 // localhost:3000
