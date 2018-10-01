@@ -1,1 +1,1 @@
-# rotten_tomatoes
+# rotten_potatoes
