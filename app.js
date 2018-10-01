@@ -1,11 +1,16 @@
-const createError = require('http-errors');
 const express = require('express');
 const methodOverride = require('method-override');
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
+
+
+//const createError = require('http-errors');
+//const cookieParser = require('cookie-parser');
+//const logger = require('morgan');
+
+
 const reviews = require('./controllers/reviews');
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,17 +42,17 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, "views"));
 
 
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+//app.use(logger('dev'));
+//app.use(cookieParser());
+//app.use(express.static(path.join(__dirname, 'public')));
 
 
 // override with POST having ?_method=DELETE or ?_method=PUT
 app.use(methodOverride('_method'));
 
-const router = express.Router();
+//const router = express.Router();
 
 //app.use(reviews);
 reviews(app);
@@ -56,6 +61,7 @@ reviews(app);
 
 //////////////////////////////////////////////////////////////
 
+/*
 // localhost:3000
 app.listen(3000, () => {
     console.log('App listening on port 3000!')
@@ -76,5 +82,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+*/
 
 module.exports = app;
