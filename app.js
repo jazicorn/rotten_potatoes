@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 
 
 const reviews = require('./controllers/reviews');
-
+const comments = require('./controllers/comments');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,7 +56,7 @@ app.use(methodOverride('_method'));
 
 //app.use(reviews);
 reviews(app);
-
+comments(app);
 
 
 //////////////////////////////////////////////////////////////
