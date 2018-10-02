@@ -12,6 +12,9 @@ const bodyParser = require('body-parser');
 const reviews = require('./controllers/reviews');
 const comments = require('./controllers/comments');
 
+const Review = require('./models/review')
+const Comment = require('./models/comment')
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 

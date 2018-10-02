@@ -1,3 +1,5 @@
+//const Comment = require('./models/comment.js')
+
 module.exports = (app) => {
 
   // NEW Comment
