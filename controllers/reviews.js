@@ -5,7 +5,7 @@ const Review = require('../models/review.js')
 const Comment = require('../models/comment.js')
 
 module.exports = function(app) {
-
+/*
     //HOME
     app.get('/', (req, res) => {
         Review.find()
@@ -16,7 +16,7 @@ module.exports = function(app) {
                 console.logg(err);
             });
     });
-
+*/
     //NEW
     app.get('/reviews/new', (req, res) => {
         Review.find()
