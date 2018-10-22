@@ -16,19 +16,19 @@ module.exports = (app) => {
       }).catch(console.error)
     })
 
-/*
+
     app.get('/movies/:id', (req, res) => {
       moviedb.movieInfo({ id: req.params.id }).then(movie => {
         moviedb.movieTrailers({ id: req.params.id }).then(videos => {
           movie.trailer_youtube_id = videos.youtube[0].source
-          console.log('VIDEOS.TRAILER_YOUTUBE_ID', videos.trailer_youtube_id)
+          console.log('VIDEOS.TRAILER_YOUTUBE_ID', videos.youtube[0].source)
 
           res.render('movies-show', { movie: movie });
         }).catch(console.error);
       }).catch(console.error);
     });
-*/
 
+/*
     // SHOW
     app.get('/movies/:id', (req, res) => {
         moviedb.movieInfo({ id: req.params.id }).then(movie => {
@@ -41,6 +41,7 @@ module.exports = (app) => {
 
         }).catch(console.error);
     });
+*/
 
     app.get('/movies/:movieId/reviews/new', (req, res) => {
         render('reviews-new', { movieId: req.params.movieId })
