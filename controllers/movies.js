@@ -22,29 +22,18 @@ module.exports = (app) => {
         moviedb.movieTrailers({ id: req.params.id }).then(videos => {
           movie.trailer_youtube_id = videos.youtube[0].source
           console.log('VIDEOS.TRAILER_YOUTUBE_ID', videos.youtube[0].source)
-
-          res.render('movies-show', { movie: movie });
+          Review.find({movieId: req.params.id}).then(review => {
+          // THEN RENDER THE MOVIES-SHOW TEMPLATE
+          res.render('movies-show', { movie: movie, review: review });
         }).catch(console.error);
+
       }).catch(console.error);
     });
-
-/*
-    // SHOW
-    app.get('/movies/:id', (req, res) => {
-        moviedb.movieInfo({ id: req.params.id }).then(movie => {
-
-            // FIND THIS MOVIE'S REVIEWS
-            Review.find({ movieId: req.params.id }).then(reviews => {
-              // THEN RENDER THE MOVIES-SHOW TEMPLATE
-              res.render('movies-show', { movie: movie, reviews: reviews });
-            }).catch(console.error);
-
-        }).catch(console.error);
     });
-*/
+
 
     app.get('/movies/:movieId/reviews/new', (req, res) => {
-        render('reviews-new', { movieId: req.params.movieId })
+        res.render('reviews-new', { movieId: req.params.movieId })
     })
 
     app.post('/movies/:movieId/reviews', (req, res) => {
