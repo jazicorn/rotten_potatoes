@@ -31,11 +31,6 @@ module.exports = (app) => {
     });
     });
 
-
-    app.get('/movies/:movieId/reviews/new', (req, res) => {
-        res.render('reviews-new', { movieId: req.params.movieId })
-    })
-
     app.post('/movies/:movieId/reviews', (req, res) => {
       console.log(req.body)
     })

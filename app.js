@@ -3,19 +3,9 @@ const methodOverride = require('method-override');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-
 //const createError = require('http-errors');
 //const cookieParser = require('cookie-parser');
 //const logger = require('morgan');
-
-
-const reviews = require('./controllers/reviews');
-const comments = require('./controllers/comments');
-const movies = require('./controllers/movies');
-
-const Review = require('./models/review')
-const Comment = require('./models/comment')
-const Movie = require('./models/movie')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,18 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rotten-potatoes', { useNewUrlParser: true });
-
-
-/*
-// Template Engine setup
-app.engine('hbs', hbs({
-  extname: 'hbs',
-  defaultLayout: 'main',
-  layoutsDir: __dirname + '/views/layouts/'
-}));
-
-*/
-
 
 // view engine setup
 const hbs = require('express-handlebars');
@@ -60,12 +38,12 @@ app.use(methodOverride('_method'));
 //const router = express.Router();
 
 //app.use(reviews);
-reviews(app);
-comments(app);
-movies(app);
+
+const reviews = require('./controllers/reviews')(app);
+const comments = require('./controllers/comments')(app);
+const movies = require('./controllers/movies')(app);
 
 //////////////////////////////////////////////////////////////
-
 
 // localhost:3000
 app.listen(3000, () => {
