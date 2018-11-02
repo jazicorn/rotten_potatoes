@@ -1,10 +1,10 @@
-<form action="/reviews/comments" method="post">
+<form action="#" id="new-Comment">
     <input type="hidden" value="{{review._id}}" name="reviewId">
     <fieldset>
     <legend>Add a Comment</legend>
     <!-- TITLE -->
     <div class="form-group">
-      <label for="comment-title">Title</label><br>
+      <label for="comment-title">{{Title}}</label><br>
       <input class="form-control"
         id="comment-title"
         type="text"

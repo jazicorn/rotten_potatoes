@@ -5,7 +5,7 @@ const Review = require('../models/review.js')
 const Comment = require('../models/comment.js')
 
 module.exports = function(app) {
-
+/*
     //HOME
     app.get('/', (req, res) => {
         Review.find()
@@ -16,17 +16,7 @@ module.exports = function(app) {
                 console.logg(err);
             });
     });
-
-    //NEW
-    app.get('/reviews/new', (req, res) => {
-        Review.find()
-            .then(reviews => {
-                res.render('reviews-new', {reviews: reviews});
-            })
-            .catch(err => {
-                console.logg(err);
-            });
-    });
+*/
 
     //Review-CREATE
     app.post('/reviews', (req, res) => {
@@ -39,6 +29,11 @@ module.exports = function(app) {
                 console.log(err.message);
                 res.send('ERROR')
       })
+    })
+
+    //NEW
+    app.get('/movies/:movieId/reviews/new', (req, res) => {
+        res.render('reviews-new', { movieId: req.params.movieId })
     })
 
 
