@@ -1,6 +1,6 @@
 // controllers/admin.js
 
-const Review = require('./models/review')
+const Review = require('../models/review')
 
 module.exports = function (app) {
 
